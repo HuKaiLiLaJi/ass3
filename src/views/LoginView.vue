@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'vue-router'
 
+import db from '../firebase/init.js'
+import { collection, query, where, getDocs } from 'firebase/firestore'
+
 const router = useRouter()
 
 const fireAuth = getAuth()
@@ -11,7 +14,7 @@ const formData = ref({
   password: ''
 })
 
-const submitForm = () => {
+const submitForm = async () => {
   validateName(true)
   validatePassword(true)
   if (!errors.value.username && !errors.value.password
@@ -20,23 +23,30 @@ const submitForm = () => {
   ) {
 
     signInWithEmailAndPassword(fireAuth, formData.value.username, formData.value.password)
-      .then(() => {
-        sessionStorage.setItem('user', fireAuth.currentUser.email)
-        if(fireAuth.currentUser.email.includes("admin")){
-          sessionStorage.setItem('role', 'admin')
-        }else{
-          sessionStorage.setItem('role', 'customer')
-        }
-        console.log("Firebase Login Successful!")
-        console.log(fireAuth.currentUser)
-        router.push("/bookList")
-          .then(() => {
-            location.reload()
-          })
-      }).catch((error) => {
-        console.log(error.code)
-      })
+      .catch((error) => {
+        console.log(error)
+      });
 
+    sessionStorage.setItem('user', formData.value.username)
+
+    const q = query(collection(db, 'users'), where('email', '==', formData.value.username))
+    const querySnapshot = await getDocs(q)
+    console.log(q)
+    console.log(querySnapshot)
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data().role)
+        sessionStorage.setItem('role', doc.data().role)
+      });
+    } else {
+      sessionStorage.setItem('role', 'customer')
+      console.log("No matching documents found.");
+    }
+
+    router.push("/bookList")
+      .then(() => {
+        location.reload()
+      })
 
     clearForm()
   }
