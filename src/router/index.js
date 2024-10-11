@@ -11,7 +11,7 @@ import BookListFunctionView from '@/views/BookListFunctionView.vue'
 import WeatherView from '@/views/WeatherView.vue'
 import CountBookAPI from '@/views/CountBookAPI.vue'
 import GetAllBookAPI from '@/views/GetAllBookAPI.vue'
-
+import SendMailView from '@/views/SendMailView.vue'
 const routes = [
   {
     path: '/',
@@ -78,6 +78,12 @@ const routes = [
     name: 'GetAllBookAPI',
     component: GetAllBookAPI, // week10
     meta: { requiresAuth: true } // need login
+  },
+  {
+    path: '/SendMail',
+    name: 'SendMail',
+    component: SendMailView,
+    meta: { requiresAuth: true }  // ass3
   },
 ]
 

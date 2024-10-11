@@ -45,6 +45,9 @@
         <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/bookList" class="nav-link" active-class="active">Book List</router-link>
         </li>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/SendMail" class="nav-link" active-class="active">Send Mail</router-link>
+        </li>
       </ul>
     </header>
   </div>

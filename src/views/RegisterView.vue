@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
+import db from '../firebase/init.js'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 const router = useRouter()
 const fireAuth = getAuth()
 
@@ -12,7 +15,7 @@ const formData = ref({
   gender: ''
 })
 
-const submitForm = () => {
+const submitForm = async () => {
   validateName(true)
   validatePassword(true)
   validateConfirmPassword(true)
@@ -21,16 +24,29 @@ const submitForm = () => {
     && !errors.value.validateFriend
   ) {
     createUserWithEmailAndPassword(fireAuth, formData.value.username, formData.value.password)
-      .then(() => {
-        console.log("Firebase Register Successful!")
-        router.push("/fireLogin")
+      .catch((error) => {
+        console.error(error.code)
+        throw new Error(error.code);
+        
+      });
+
+    addDoc(collection(db, 'users'), {
+      email: formData.value.username,
+      gender: formData.value.gender,
+      role: 'customer',
+      createdAt: serverTimestamp()
+    }).then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+      clearForm()
+      router.push("/fireLogin")
           .then(() => {
             location.reload()
           })
-      }).catch((error) => {
-        console.log(error.code)
-      })
-    clearForm()
+    }).catch((error) => {
+      console.error("Error adding document:", error.code)
+      alert(error.code)
+    });
+    // 
   }
 }
 
@@ -98,7 +114,7 @@ const validateConfirmPassword = (blur) => {
   <!-- 🗄️ W3. Library Registration Form -->
   <div class="container mt-5">
     <div class="row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-10 offset-md-2">
         <h1 class="text-center">Firebase Register</h1>
         <form @submit.prevent="submitForm">
           <div class="row mb-3">
