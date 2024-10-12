@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-sgMail.setApiKey('need to add because of the git ');
+sgMail.setApiKey('need to add soon');
 
 app.get('/', (req, res) => {
     res.send('Hello from Node.js!');
