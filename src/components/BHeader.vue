@@ -1,31 +1,59 @@
 <template>
   <!-- Using Bootstrap's Header template (starter code) -->
-  <!-- https://getbootstrap.com/docs/5.0/examples/headers/ -->
+  <link rel="icon" href="/favicon.ico">
   <div class="container">
-    <header class="d-flex justify-content-center py-3">
+    <header class="d-flex justify-content-center py-2 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <img class="d-block mx-auto" src="/Tools.png" alt="Tools" width="40" height="32">
+        <span class="fs-4">Tools</span>
+      </a>
       <ul class="nav nav-pills">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link" active-class="active" aria-current="page">Home (Ass3)</router-link>
+        <li v-if="user == null || user == ''" class="nav-item">
+          <router-link to="/GetAllBookAPI" class="nav-link" active-class="active">Books API</router-link>
         </li>
-        <li v-if="!user" class="nav-item">
-          <router-link to="/fireLogin" class="nav-link" active-class="active">Firebase Login</router-link>
+        <li v-if="user == null || user == ''" class="nav-item">
+          <router-link to="/UserAPI" class="nav-link" active-class="active">Users API</router-link>
         </li>
-        <li v-if="!user" class="nav-item">
-          <router-link to="/fireRegister" class="nav-link" active-class="active">Firebase Register</router-link>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/admin" class="nav-link" active-class="active" aria-current="page">Admin</router-link>
         </li>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/addBook" class="nav-link" active-class="active">Add Book</router-link>
+        </li>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/sendMail" class="nav-link" active-class="active" aria-current="page">Mail</router-link>
+        </li>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/WeatherCheck" class="nav-link" active-class="active">Weather</router-link>
+        </li>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/map" class="nav-link" active-class="active">Map</router-link>
+        </li>
+        <li v-if="user != null && user !== ''" class="nav-item">
+          <router-link to="/pathNav" class="nav-link" active-class="active">Path</router-link>
+        </li>
+        <!-- <li class="nav-item">
+          <router-link to="/" class="nav-link" active-class="active" aria-current="page">Home</router-link>
+        </li> -->
+        <!-- <li v-if="!user" class="nav-item" id="login-nav">
+          <router-link to="/fireLogin" class="nav-link" active-class="active">Login</router-link>
+        </li>
+        <li v-if="!user" class="nav-item" id="register-nav">
+          <router-link to="/fireRegister" class="nav-link" active-class="active">Register</router-link>
+        </li> -->
         <!-- week 9 -->
-        <li class="nav-item">
+        <!-- <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/GetBookCount" class="nav-link" active-class="active">Get Book Count</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/addBookFunction" class="nav-link" active-class="active">Add Book by Function</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/booksFunction" class="nav-link" active-class="active">Query Book by Function</router-link>
-        </li>
+        </li> -->
         <!-- week 9 end -->
         <!-- week 10 -->
-        <li v-if="user != null && user !== ''" class="nav-item">
+        <!-- <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/WeatherCheck" class="nav-link" active-class="active">Get Weather</router-link>
         </li>
         <li v-if="user != null && user !== ''" class="nav-item">
@@ -33,24 +61,24 @@
         </li>
         <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/GetAllBookAPI" class="nav-link" active-class="active">Get All Book API</router-link>
-        </li>
+        </li> -->
         <!-- week 10 end -->
         <!-- week 8-->
-        <li v-if="user != null && user !== ''" class="nav-item">
+        <!-- <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link>
-        </li>
-        <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/addBook" class="nav-link" active-class="active">Add Book</router-link>
-        </li>
-        <li v-if="user != null && user !== ''" class="nav-item">
+        </li> -->
+        <!-- <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/bookList" class="nav-link" active-class="active">Book List</router-link>
-        </li>
-        <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/SendMail" class="nav-link" active-class="active">Send Mail</router-link>
-        </li>
+        </li> -->
       </ul>
+      <div class="col-md-3 text-end">
+        <button v-if="user == null || user == ''" type="button" class="btn btn-outline-primary me-2"><router-link to="/login" class="nav-link">Login</router-link></button>
+        <button v-if="user == null || user == ''" type="button" class="btn btn-outline-success me-2"><router-link to="/register" class="nav-link">Sign-up</router-link></button>
+        <button v-if="user != null && user != ''" type="button" class="btn btn-outline-secondary me-2"><router-link to="/logout" class="nav-link">{{ user }}</router-link></button>
+      </div>
     </header>
   </div>
+
 </template>
 
 <style scoped>
@@ -89,11 +117,13 @@
 .dropdown-toggle {
   outline: 0;
 }
+
+ul li {
+  font-size: 24px;
+}
 </style>
 
 
 <script setup>
 const user = sessionStorage.getItem('user')
-// console.log("header:" + user)
-// console.log(user)
 </script>

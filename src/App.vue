@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import BHeader from './components/BHeader.vue'
+import BHeader from './components/BHeader1.vue'
 
 export default {
   name: 'APP',
