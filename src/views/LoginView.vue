@@ -37,13 +37,15 @@ const submitForm = async () => {
       querySnapshot.forEach((doc) => {
         console.log(doc.data().role)
         sessionStorage.setItem('role', doc.data().role)
+        sessionStorage.setItem('gender', doc.data().gender)
       });
     } else {
       sessionStorage.setItem('role', 'customer')
+      sessionStorage.setItem('gender', 'Unkonwn')
       console.log("No matching documents found.");
     }
 
-    router.push("/bookList")
+    router.push("/admin")
       .then(() => {
         location.reload()
       })
@@ -99,11 +101,11 @@ const validatePassword = (blur) => {
 <template>
   <div class="container mt-5">
     <div class="row">
-      <h1 class="text-center">Firebase Login</h1>
+      <h1 class="text-center">User Login</h1>
       <form @submit.prevent="submitForm">
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" @blur="() => validateName(true)"
+          <input type="email" class="form-control" id="username" @blur="() => validateName(true)"
             @input="() => validateName(false)" v-model="formData.username" />
           <div v-if="errors.username" class="text-danger">{{ errors.username }}</div>
         </div>
