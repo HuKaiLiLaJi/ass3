@@ -7,18 +7,14 @@ import SendMailView from '@/views/SendMailView.vue'
 import AddBookView from '@/views/AddBookView.vue'
 import GetAllBookAPI from '@/views/GetAllBookAPI.vue'
 import UserAPI from '@/views/UsersAPI.vue'
+import WeatherView from '@/views/WeatherView.vue'
 import MapView from '@/views/MapView.vue'
 import PathView from '@/views/PathView.vue'
+import GenAIView from '@/views/GenAIView.vue'
+
+import DashboardView from '@/views/DashboardView.vue'
 
 import LogoutView from '@/views/LogoutView.vue'
-
-import BookListView from '@/components/BookList.vue'
-import GetBookCountView from '@/views/GetBookCountView.vue'
-import AddBookFunctionView from '@/views/AddBookFunctionView.vue'
-import BookListFunctionView from '@/views/BookListFunctionView.vue'
-import WeatherView from '@/views/WeatherView.vue'
-import CountBookAPI from '@/views/CountBookAPI.vue'
-
 
 const routes = [
   {
@@ -88,35 +84,18 @@ const routes = [
     component: PathView,
     meta: { requiresAuth: true } // need login
   },
-
   {
-    path: '/bookList',
-    name: 'BookList',
-    component: BookListView,
+    path: '/ai',
+    name: 'GenAI',
+    component: GenAIView,
     meta: { requiresAuth: true } // need login
   },
   {
-    path: '/GetBookCount',
-    name: 'GetBookCount',
-    component: GetBookCountView // week9
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: DashboardView,
+    meta: { requiresAuth: true, admin: true } // need admin login
   },
-  {
-    path: '/addBookFunction',
-    name: 'AddBookFunction',
-    component: AddBookFunctionView // week9
-  },
-  {
-    path: '/booksFunction',
-    name: 'BookListFunction',
-    component: BookListFunctionView // week9
-  },
-  {
-    path: '/CountBookAPI',
-    name: 'CountBookAPI',
-    component: CountBookAPI, // week10
-    meta: { requiresAuth: true } // need login
-  },
-  
 ]
 
 const router = createRouter({

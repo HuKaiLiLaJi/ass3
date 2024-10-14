@@ -1,21 +1,21 @@
 <template>
     <div class="container">
         <div class="row col-12">
-            <h1 class="text-center">Searching Places of Interest</h1>
+            <h1 class="text-center">Navigate Between Places</h1>
             <form class="row row-cols-lg align-items-center justify-content-center" action="#"
                 style="margin-bottom: 20px;">
                 <div class="row col-3">
                     <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">From</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control form-control-lg" v-model="start"
-                            placeholder="Start Place" @keyup.enter="getDirections">
+                            placeholder="Start Place" @keyup.enter="getDirections" required>
                     </div>
                 </div>
                 <div class="row col-3">
                     <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">To</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control form-control-lg" v-model="end" placeholder="End Place"
-                            @keyup.enter="getDirections">
+                            @keyup.enter="getDirections" required>
                     </div>
                 </div>
                 <div class="row col-4">

@@ -8,7 +8,7 @@
                     <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Place Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control form-control-lg" id="colFormLabelLg"
-                            @keyup.enter="searchPlaces" v-model="query" placeholder="Place Name">
+                            @keyup.enter="searchPlaces" v-model="query" placeholder="Place Name" required>
                     </div>
                 </div>
                 <div class="col-2">
@@ -32,7 +32,7 @@ export default {
             map: null,
             markers: [],
             query: "",
-            mapboxToken: "hide here", // Mapbox Access Token
+            mapboxToken: "pk.eyJ1IjoieXVwZW5nbGl1IiwiYSI6ImNtMjF2a2lpNDAwa28ybXEwNzByeHZkdjEifQ.eJuvRXNJcqKUbAFBwu5xJg", // Mapbox Access Token
         };
     },
     mounted() {

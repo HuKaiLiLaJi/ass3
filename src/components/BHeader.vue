@@ -8,6 +8,9 @@
         <span class="fs-4">Tools</span>
       </a>
       <ul class="nav nav-pills">
+        <li v-if="user != null && user !== '' && role == 'admin'" class="nav-item">
+          <router-link to="/dashboard" class="nav-link" active-class="active" aria-current="page">Dash</router-link>
+        </li>
         <li v-if="user == null || user == ''" class="nav-item">
           <router-link to="/GetAllBookAPI" class="nav-link" active-class="active">Books API</router-link>
         </li>
@@ -32,44 +35,9 @@
         <li v-if="user != null && user !== ''" class="nav-item">
           <router-link to="/pathNav" class="nav-link" active-class="active">Path</router-link>
         </li>
-        <!-- <li class="nav-item">
-          <router-link to="/" class="nav-link" active-class="active" aria-current="page">Home</router-link>
-        </li> -->
-        <!-- <li v-if="!user" class="nav-item" id="login-nav">
-          <router-link to="/fireLogin" class="nav-link" active-class="active">Login</router-link>
-        </li>
-        <li v-if="!user" class="nav-item" id="register-nav">
-          <router-link to="/fireRegister" class="nav-link" active-class="active">Register</router-link>
-        </li> -->
-        <!-- week 9 -->
-        <!-- <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/GetBookCount" class="nav-link" active-class="active">Get Book Count</router-link>
-        </li>
         <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/addBookFunction" class="nav-link" active-class="active">Add Book by Function</router-link>
+          <router-link to="/ai" class="nav-link" active-class="active">GenAI</router-link>
         </li>
-        <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/booksFunction" class="nav-link" active-class="active">Query Book by Function</router-link>
-        </li> -->
-        <!-- week 9 end -->
-        <!-- week 10 -->
-        <!-- <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/WeatherCheck" class="nav-link" active-class="active">Get Weather</router-link>
-        </li>
-        <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/CountBookAPI" class="nav-link" active-class="active">Count Book API</router-link>
-        </li>
-        <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/GetAllBookAPI" class="nav-link" active-class="active">Get All Book API</router-link>
-        </li> -->
-        <!-- week 10 end -->
-        <!-- week 8-->
-        <!-- <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/logout" class="nav-link" active-class="active">Logout</router-link>
-        </li> -->
-        <!-- <li v-if="user != null && user !== ''" class="nav-item">
-          <router-link to="/bookList" class="nav-link" active-class="active">Book List</router-link>
-        </li> -->
       </ul>
       <div class="col-md-3 text-end">
         <button v-if="user == null || user == ''" type="button" class="btn btn-outline-primary me-2"><router-link to="/login" class="nav-link">Login</router-link></button>
@@ -126,4 +94,5 @@ ul li {
 
 <script setup>
 const user = sessionStorage.getItem('user')
+const role = sessionStorage.getItem('role')
 </script>

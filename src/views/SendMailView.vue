@@ -25,7 +25,7 @@
             </form>
 
             <div class="alert alert-primary status" role="alert" v-if="status == 'Y'">
-                Email sent successfully!
+                Email sent to {{ to }} successfully!
                 <button type="button" style="float: right;" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
                     @click="close"></button>
             </div>
@@ -119,7 +119,7 @@ export default {
             const emails = this.emailData.to.split(',').map(email => email.trim());
 
             try {
-                const response = await axios.post('http://localhost:3000/send-email', {
+                const response = await axios.post('https://sendmail-fqquxhhbva-uc.a.run.app', {
                     to: emails,
                     subject: this.emailData.subject,
                     text: this.emailData.message,

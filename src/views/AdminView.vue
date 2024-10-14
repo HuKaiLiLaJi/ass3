@@ -16,23 +16,13 @@ export default {
         this.fetchBooks();
     },
     methods: {
-        formatDate(timestamp) {
-            const date = timestamp.toDate();
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            const seconds = String(date.getSeconds()).padStart(2, '0');
-            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        },
         async exportBooks() {
             const headers = ["ISBN", "Name", "Category", "CreatedAt"];
             const rows = this.books.map(book => [
                 book.isbn,
                 book.name,
                 book.category,
-                this.formatDate(book.createdAt)
+                book.createdAt
             ]);
 
             // Concatenate CSV strings
@@ -85,7 +75,7 @@ export default {
                         booksArray.push({ id: doc.id, ...doc.data() })
                     });
                     this.books = booksArray
-                    this.title = 'My Books With Category: ' + this.search_category + ' In Firebase'
+                    this.title = 'My Books With Category: ' + this.search_category;
                 } else {
                     this.fetchBooks()
                 }
